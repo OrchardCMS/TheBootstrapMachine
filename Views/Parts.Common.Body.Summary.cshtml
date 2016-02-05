@@ -1,0 +1,37 @@
+﻿@using Orchard.ContentManagement;
+
+@{
+    Orchard.ContentManagement.ContentItem contentItem = Model.ContentPart.ContentItem;
+
+    bool showFullSummaries = WorkContext.CurrentSite.As<TheBootstrapMachine.Models.BootstrapSettingsPart>().ShowFullSummaries;
+
+    if (showFullSummaries) {
+        @Model.Html
+        return;
+    }
+
+    string bodyHtml = Model.Html.ToString();
+    var more = bodyHtml.IndexOf("<!--more-->");
+    if (more != -1)
+    {
+        bodyHtml = bodyHtml.Substring(0, more);
+    }
+    else
+    {
+        var firstP = bodyHtml.IndexOf("<p>");
+        var firstSlashP = bodyHtml.IndexOf("</p>");
+        if (firstP >= 0 && firstSlashP > firstP)
+        {
+            bodyHtml = bodyHtml.Substring(firstP, firstSlashP + 4 - firstP);
+        }
+    }
+    var body = new HtmlString(bodyHtml);
+}
+@if (bodyHtml.StartsWith("<p") && bodyHtml.EndsWith("/p>")) {
+   @body
+}
+else { 
+    <p>@body</p>
+}
+
+<div class="readmore">@Html.ItemDisplayLink(T("Read more...").ToString(), contentItem)</div>

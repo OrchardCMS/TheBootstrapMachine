@@ -1,0 +1,65 @@
+﻿@using NGM.OpenAuthentication.Extensions
+@using NGM.OpenAuthentication.Models
+@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
+
+@{
+    var userCanRegister = WorkContext.CurrentSite.As<Orchard.Users.Models.RegistrationSettingsPart>().UsersCanRegister;
+    var enableLostPassword = WorkContext.CurrentSite.As<Orchard.Users.Models.RegistrationSettingsPart>().EnableLostPassword;
+
+    var clientsData = (List<OrchardAuthenticationClientData>) Model.ClientsData;
+    
+    var userName = Request.QueryString["UserName"];
+    var externalLoginData = Request.QueryString["ExternalLoginData"];
+    var returnUrl = Request.QueryString["ReturnUrl"];
+}
+
+<h1 class="page-title">@Html.TitleForPage((string)Model.Title)</h1>
+<p>
+    @T("Please enter your username and password.")
+    @if (userCanRegister)
+    { @Html.ActionLink(T("Register").Text, "Register") @T(" if you don't have an account.") }
+    @if (enableLostPassword)
+    { <text> </text> @Html.ActionLink(T("Lost your Password?").Text, "RequestLostPassword") }
+</p>
+@Html.ValidationSummary(T("Login was unsuccessful. Please correct the errors and try again.").ToString())
+
+@if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(externalLoginData)) {
+    <fieldset class="login-form group">
+        <legend>@T("External Service Association")</legend>
+        <p>@T("This user account will be linked to <b>{0}</b> when you login.", userName)</p>
+    </fieldset>
+}
+
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        @using (Html.BeginFormAntiForgeryPost(Url.LogOn(returnUrl, userName, externalLoginData))) {        
+            <fieldset class="login-form group">
+                <legend>@T("Account Information")</legend>
+                <div class="form-group @(Html.ViewData.ModelState.IsValidField("userNameOrEmail") ? null : "has-error")">
+                    <label for="username-email">@T("Username")</label>
+                    @Html.TextBox("userNameOrEmail", "", new { id = "username-email", autofocus = "autofocus", @class = "form-control" })
+                </div>
+                <div class="form-group @(Html.ViewData.ModelState.IsValidField("password") ? null : "has-error")">
+                    <label for="password">@T("Password")</label>
+                    @Html.Password("password", null, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    @Html.CheckBox("rememberMe", new { id = "remember-me" })
+                    <label class="forcheckbox" for="remember-me">@T("Remember Me")</label>
+                </div>
+                <button class="btn btn-primary" type="submit">@T("Sign In")</button>
+            </fieldset>
+        }
+    </div>
+    <div class="col-md-4 col-xs-12">
+        @using (Html.BeginFormAntiForgeryPost(Url.OpenAuthLogOn(returnUrl))) {
+            <fieldset class="login-form group">
+                <legend>@T("Or log with")</legend>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" name="providerName" value="Microsoft" title="@T("Log in using your Microsoft Account")">@T("Microsoft Account")</button>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>

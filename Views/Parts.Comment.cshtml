@@ -1,0 +1,37 @@
+﻿@using Orchard.ContentManagement
+
+@{
+    var comment = Model.ContentPart;
+    var comments = Model.CommentedOnContentItem.CommentsPart;
+
+    var children = New.List(Items: Model.Items);
+    children.Classes.Add("comments");
+
+    Orchard.Security.IUser contentOwner = Model.ContentOwner;
+    
+    // we check the UserName property as the comment's Author could have tried to fake the content's name
+    var isAuthor = contentOwner != null && contentOwner.UserName == comment.UserName;
+    
+    // this template is rendered before the list container so
+    // that we can update its classes, clever !
+    Model.Tag.AddCssClass(isAuthor ? "bg-info" : null);
+}
+
+<blockquote class="comment comment-@comment.Id">
+    @if (comments.ThreadedComments) {
+        <div class="pull-right">
+            <span class="reply">@Display.CommentReplyButton(ContentPart: comment)</span>
+        </div>
+    }
+
+    @Display.CommentText(ContentPart: Model.ContentPart, ContentItem: Model.ContentItem)
+
+    <footer>
+        <span class="who"><strong>@Html.LinkOrDefault((string)comment.Author, (string)comment.SiteName, new { rel = "nofollow" })</strong></span>
+        - <span class="when"><time datetime="@comment.CommentDateUtc.ToString("yyyy-MM-ddTHH:mm:ss.fffffffZ")"><a class="alert-link" href="@Url.RouteUrl(comment.CommentedOnContentItemMetadata.DisplayRouteValues)#comment-@comment.Id">@Display.DateTimeRelative(dateTimeUtc: comment.CommentDateUtc)</a></time></span>
+    </footer>
+
+    @Display(children)
+</blockquote>
+
+

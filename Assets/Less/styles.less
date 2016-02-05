@@ -1,0 +1,221 @@
+﻿@import "../../../TheBootstrapMachine/Assets/bootstrap/bootstrap.less";
+@icon-font-path: "//netdna.bootstrapcdn.com/bootstrap/3.3.5/fonts/";
+
+/* 
+    layout 
+*/
+
+#layout-main-container, 
+#layout-tripel-container, 
+#layout-footer,
+#layout-before-main,
+#layout-after-main,
+#layout-header {
+    .container();
+}
+
+#layout-main {
+    .make-row();
+}
+
+#aside-first {
+    .make-md-column(3);
+}
+
+#aside-second {
+    .make-md-column(3);
+}
+
+#layout-content {
+    .make-md-column(12);
+}
+
+/* if only one aside column is present, make the content a 9 */
+.aside-1 #layout-content, .aside-2 #layout-content {
+    .make-md-column(9);
+}
+
+/* if the two aside colums are present, make the content a 6 */
+.aside-12 #layout-content {
+    .make-md-column(6);
+}
+
+/* if only one tripel column is present, make the content a 12 */
+.tripel-1, .tripel-2, .tripel-3 {
+    #tripel-first, #tripel-second, #tripel-third {
+        .make-md-column(12);
+    }
+}
+
+/* if two tripel columns are present, make the content a 6 */
+.tripel-12, .tripel-13, .tripel-23 {
+    #tripel-first, #tripel-second, #tripel-third {
+        .make-md-column(6);
+    }
+}
+
+/* if three tripel columns are present, make the content a 4 */
+.tripel-123 {
+    #tripel-first, #tripel-second, #tripel-third {
+        .make-md-column(4);
+    }
+}
+
+#layout-tripel {
+    .make-row();
+}
+
+/* if only one quad column is present, make the content a 12 */
+.split-1, .split-2, .split-3, .split-4 {
+    #footer-quad-first, #footer-quad-second, #footer-quad-third, #footer-quad-fourth {
+        .make-md-column(12);
+    }
+}
+
+/* if two quad columns are present, make the content a 6 */
+.split-12, .split-13, .split-14, .split-23, .split-24, .split34 {
+    #footer-quad-first, #footer-quad-second, #footer-quad-third, #footer-quad-fourth {
+        .make-md-column(6);
+    }
+}
+
+/* if three quad columns are present, make the content a 4 */
+.split-123, .split-124, .split-134, .split-234 {
+    #footer-quad-first, #footer-quad-second, #footer-quad-third, #footer-quad-fourth {
+        .make-md-column(4);
+    }
+}
+
+/* if four quad columns are present, make the content a 3 */
+.split-1234 {
+    #footer-quad-first, #footer-quad-second, #footer-quad-third, #footer-quad-fourth {
+        .make-md-column(3);
+    }
+}
+
+#footer-quad, #footer-sig {
+    .make-row();
+}
+
+#aside-first, #aside-second {
+    .hidden-sm;
+    .hidden-xs;
+}
+
+article header {
+    margin-bottom: 10px;
+}
+
+/* comments */
+
+ul.comments {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comment {
+    padding: @padding-large-vertical @padding-large-horizontal;
+}
+
+.comments > li {
+    margin-bottom: 20px;
+}
+
+/* validation messages */
+
+.validation-summary-errors {
+    .alert();
+    .alert-danger();
+}
+
+.validation-summary-errors:last-child {
+    margin-bottom: 0;
+}
+
+/* messages */
+
+.message {
+    .alert();
+}
+
+.message-Error {
+    .alert-danger();
+}
+
+.message-Information {
+    .alert-success();
+}
+
+.message-Warning {
+    .alert-warning();
+}
+
+/* footer style */
+
+#footer {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 100px;
+    color: @gray;
+    border-top: 1px solid #e5e5e5;
+}
+
+#footer-sig {
+    text-align: center;
+}
+
+/* pager */
+
+
+.pager li > a, .pager li > span{
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
+
+.widget {
+
+    h1 {
+        font-size: floor((@font-size-small * 1.7));
+    }
+
+    h2 {
+        font-size: floor((@font-size-small * 1.25));
+    }
+
+    h3, h4, h5, h6 {
+        font-size: ceil((@font-size-base * 0.8)); 
+    }
+}
+
+.widget-tag-cloud ul, .widget-blog-archives ul {
+    padding-left:0;
+    margin-left: 0;
+}
+
+.widget-blog-archives ul  ul {
+    padding-left:0;
+    margin-left: 0;
+}
+
+.widget-tag-cloud li, .widget-blog-archives li {
+    list-style: none;
+}
+
+.widget-recent-blog-posts ul  {
+    padding-left:0;
+    margin-left: 25px;
+}
+
+.tag-cloud li {
+    display: inline;
+}
+
+ul.content-items {
+    padding-left:0;
+}
+
+ul.content-items li {
+    list-style: none;
+}

@@ -1,0 +1,15 @@
+﻿@using Orchard.Comments.Models
+@{
+    CommentPart comment = Model.ContentPart;
+}
+
+<p class="text">
+    @{
+        using (var sr = new StringReader(comment.CommentText)) {
+            string line = null;
+            while (null != (line = sr.ReadLine())) {
+                @line <br />
+            }
+        }
+    }
+</p>

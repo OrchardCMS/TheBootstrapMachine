@@ -1,0 +1,46 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Mvc.Html;
+@using Orchard.UI.Resources;
+@using TheBootstrapMachine.Models
+@{
+
+    BootstrapSettingsPart boostrapSettingsPart = WorkContext.CurrentSite.As<BootstrapSettingsPart>();
+
+    RegisterLink(new LinkEntry { Type = "image/x-icon", Rel = "shortcut icon", Href = Url.Content("~/Themes/TheBootstrapMachine/Content/favicon.ico") });
+
+    Style.Require("TheBootstrapMachine");
+    
+    var scriptLocation = boostrapSettingsPart.ScriptsInHeader ? ResourceLocation.Head : ResourceLocation.Foot;
+
+    Script.Include("//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js").UseCondition("lt IE 9").AtHead();
+    Script.Include("//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js").UseCondition("lt IE 9").AtHead();
+
+    Script.Require("jQuery").UseCdn().AtLocation(scriptLocation);
+    Script.Include("//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js", "//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js").AtLocation(scriptLocation);
+
+    string title = Convert.ToString(Model.Title);
+    string siteName = Convert.ToString(WorkContext.CurrentSite.SiteName);
+    string userScalable = boostrapSettingsPart.DisableUserScalable ? "user-scalable=no" : "";
+    string headerContent = boostrapSettingsPart.CustomHeaderContent;
+    string footerContent = boostrapSettingsPart.CustomFooterContent;
+
+    var viewport = String.Join(", ", new[] { "width=device-width", "initial-scale=1.0", userScalable }.Where(x => !String.IsNullOrEmpty(x)));
+}
+<!DOCTYPE html> 
+<html lang="@WorkContext.CurrentCulture" class="@Html.ClassForPage()"> 
+<head> 
+    <meta charset="utf-8" />
+    <meta name="viewport" content="@viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>@Html.Title(title, siteName)</title> 
+    @Display(Model.Head)
+    @Html.Raw(headerContent)
+</head> 
+<body>
+@* Layout (template) is in the Body zone @ the default position (nothing, zero, zilch) *@
+@Display(Model.Body)
+@Display(Model.Tail)
+
+@Html.Raw(footerContent)
+</body>
+</html>

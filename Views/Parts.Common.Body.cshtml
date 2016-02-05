@@ -1,0 +1,7 @@
+﻿@{
+    if (Model.ContentItem.ContentType == "BlogPost") {
+        string excerpt = Html.Excerpt((string)Model.Html.ToString(), 200).ToString();
+        AppendMeta("description", excerpt, ",");
+    }
+}
+@Model.Html

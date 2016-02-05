@@ -1,0 +1,32 @@
+﻿<h1>@Html.TitleForPage(T("Create a New Account").ToString())</h1>
+<p>@T("Use the form below to create a new account.")</p>
+<p>@T("Passwords are required to be a minimum of {0} characters in length.", ViewData["PasswordLength"])</p>
+@Html.ValidationSummary(T("Account creation was unsuccessful. Please correct the errors and try again.").ToString()) 
+@using (Html.BeginFormAntiForgeryPost()) { 
+    <fieldset>
+        <legend>@T("Account Information")</legend>
+        <div class="form-group">
+            <label for="username">@T("Username:")</label>
+            @Html.TextBox("username", null, new { @class = "form-control" }) 
+            @Html.ValidationMessage("username") 
+        </div>
+        <div class="form-group">
+            <label for="email">@T("Email:")</label>
+            @Html.TextBox("email", null, new { @class = "form-control" })
+            @Html.ValidationMessage("email")
+        </div>
+        <div class="form-group">
+            <label for="password">@T("Password:")</label>
+            @Html.Password("password", null, new { @class = "form-control" })
+            @Html.ValidationMessage("password")
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">@T("Confirm password:")</label>
+            @Html.Password("confirmPassword", null, new { @class = "form-control" })
+            @Html.ValidationMessage("confirmPassword")
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">@T("Register")</button>
+        </div>
+    </fieldset>
+ } 

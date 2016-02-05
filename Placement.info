@@ -1,0 +1,23 @@
+﻿<Placement>
+    <!-- Customize where the shapes are rendered -->
+
+    <Match DisplayType="Detail">
+        <Place Parts_Tags_ShowTags="Meta:3;Alternate=Parts_Tags_ShowTags_Details"/>
+    </Match>
+
+    <Match DisplayType="Summary">
+        <Place Parts_Tags_ShowTags="Meta:3"/>
+    </Match>
+
+    <Place Parts_Common_Metadata="-"/>
+    <Match ContentType="BlogPost" DisplayType="Detail">
+        <Place Parts_Common_Metadata="Meta:2"/>
+        <Place Parts_Title="wrapper=Wrapper__BlogPost;Header" />
+    </Match>
+
+    <Match DisplayType="Detail">
+        <Place Parts_ListOfComments="/AfterContent:10.2" />
+        <Place Parts_CommentForm="/AfterContent:10.3" />
+    </Match>
+    
+</Placement>

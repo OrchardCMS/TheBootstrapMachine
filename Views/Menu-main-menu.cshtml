@@ -1,0 +1,65 @@
+﻿@{
+    // Model is Model.Menu from the layout (Layout.Menu)
+    var tag = Tag(Model, "ul");
+    tag.AddCssClass("nav");
+    tag.AddCssClass("navbar-nav");
+
+    var items = (IList<dynamic>)Enumerable.Cast<dynamic>(Model.Items);
+
+    if (items.Any()) {
+        items[0].Classes.Add("first");
+        items[items.Count - 1].Classes.Add("last");
+    }
+}
+<nav role="navigation">
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Href("~/")">@WorkContext.CurrentSite.SiteName</a>
+            </div>
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
+                @tag.StartElement
+                @* see MenuItem shape template *@
+                @DisplayChildren(Model)
+                @tag.EndElement
+                
+                @using (Capture(Layout.NavBar, "5")) {
+                <ul class="nav navbar-nav navbar-right">
+                    @if (WorkContext.CurrentUser != null) {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Html.ItemDisplayText(WorkContext.CurrentUser) <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                @if (AuthorizedFor(Orchard.Security.StandardPermissions.AccessAdminPanel)) {
+                                    <li>@Html.ActionLink(T("Dashboard").ToString(), "Index", new { Area = "Dashboard", Controller = "Admin" })</li>
+                                    <li class="divider"></li>
+                                }
+                                <li>
+                                    @Html.ActionLink(T("Change Password").Text, "ChangePassword", new { Controller = "Account", Area = "Orchard.Users" })
+                                </li>
+                                
+                                <li>
+                                    @Html.ActionLink(T("Sign Out").ToString(), "LogOff", new { Controller = "Account", Area = "Orchard.Users", ReturnUrl = Context.Request.RawUrl }, new { rel = "nofollow" })
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else {
+                        <li>@Html.ActionLink(T("Sign In").ToString(), "LogOn", new { Controller = "Account", Area = "Orchard.Users", ReturnUrl = (Request.QueryString["ReturnUrl"] ?? Request.RawUrl) }, new { rel = "nofollow" })</li>
+                    }
+                </ul>
+                }
+
+                @if (Layout.NavBar != null) {
+                    @Display(Layout.NavBar)
+                }
+
+            </div>
+        </div>
+    </div>
+</nav>

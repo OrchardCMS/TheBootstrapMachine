@@ -1,0 +1,34 @@
+@model TheBootstrapMachine.Models.BootstrapSettingsPart
+
+<fieldset>
+    <legend>@T("Bootstrap")</legend>
+    <div>
+        @Html.EditorFor(m => m.DisableUserScalable) 
+        <label class="forcheckbox" for="@Html.FieldIdFor(m => m.DisableUserScalable)">@T("Disable zooming capabilities on mobile devices")</label>
+        <span class="hint">@T("This disables zooming, meaning users are only able to scroll, and results in your site feeling a bit more like a native application. Overall we don't recommend this on every site, so use caution!")</span>
+    </div>
+  
+    <div>
+        @Html.LabelFor(m => m.CustomHeaderContent, T("Custom header content"))
+        @Html.TextAreaFor(m => m.CustomHeaderContent, 5, 60, null)
+        <span class="hint">@T("Define the raw HTML content to inject in the template's header, like stylesheets and scripts.")</span>
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.CustomFooterContent, T("Custom footer content"))
+        @Html.TextAreaFor(m => m.CustomFooterContent, 5, 60, null)
+        <span class="hint">@T("Define the raw HTML content to inject in the template's foooter, like scripts.")</span>
+    </div>
+
+    <div>
+        @Html.EditorFor(m => m.ShowFullSummaries)
+        <label class="forcheckbox" for="@Html.FieldIdFor(m => m.ShowFullSummaries)">@T("Show full summaries")</label>
+        <span class="hint">@T("If checked, the lists won't show summaries but the full content of the item.")</span>
+    </div>
+
+    <div>
+        @Html.EditorFor(m => m.ScriptsInHeader)
+        <label class="forcheckbox" for="@Html.FieldIdFor(m => m.ScriptsInHeader)">@T("Render scripts in header")</label>
+        <span class="hint">@T("If checked, scripts will be rendered in the header instead of the footer.")</span>
+    </div>
+</fieldset>

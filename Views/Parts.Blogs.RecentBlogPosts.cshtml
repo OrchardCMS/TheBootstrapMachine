@@ -1,0 +1,9 @@
+﻿@using Orchard.ContentManagement;
+<ul class="recent-posts">
+    @foreach (dynamic blogPostShape in Model.ContentItems.ContentItems) {
+        ContentItem contentItem = blogPostShape.ContentItem;
+    <li>
+        @Html.ItemDisplayLink(contentItem)
+    </li>
+    }
+</ul>

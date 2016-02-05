@@ -1,0 +1,15 @@
+﻿[
+  {
+    "inputs": [ "Assets/Less/*.less" ],
+    "output": "Styles/@.css",
+    "generateSourceMaps":  false
+  },
+  {
+    "inputs": [ "Assets/TypeScript/*.ts" ],
+    "output": "Scripts/@.js"
+  },
+  {
+    "inputs": [ "Assets/JavaScript/Lib/*.js" ],
+    "output": "Scripts/Lib/@.js"
+  }
+]

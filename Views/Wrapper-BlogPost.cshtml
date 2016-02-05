@@ -1,0 +1,11 @@
+@using Orchard.ContentManagement
+@using Orchard.Mvc.Extensions
+
+@{
+  SetMeta("og:title", Html.ItemDisplayText((IContent)Model.ContentItem).ToString());
+  SetMeta("og:url", Url.MakeAbsolute(Url.ItemDisplayUrl((IContent)Model.ContentItem)));
+  SetMeta("og:type", "article");
+  SetMeta("twitter:card", "summary");
+}
+
+@Display(Model.Metadata.ChildContent)

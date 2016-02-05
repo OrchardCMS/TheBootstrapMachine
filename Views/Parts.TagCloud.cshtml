@@ -1,0 +1,29 @@
+﻿@using Orchard.Tags.Models
+
+@{
+    IEnumerable<TagCount> cloud = Model.TagCounts;
+    int buckets = Model.ContentPart.Buckets;
+    var minSize = 1;
+    var maxSize = 2;
+    var minWeight = 400;
+    var maxWeight = 800;
+}
+<ul class="tag-cloud">
+    @foreach (var tagCount in cloud) {
+        <li class="tag-cloud-tag tag-cloud-tag-@tagCount.Bucket">
+            @{
+        double scale = (double)(tagCount.Bucket - 1) / (double)(buckets - 1);
+        double size = Math.Round((scale * (maxSize - minSize) ) + minSize, 1);
+        double weight = Math.Round((scale * (maxWeight - minWeight)) + minWeight, 1);
+            }
+
+            @Html.ActionLink(
+                tagCount.TagName,
+                "Search",
+                "Home",
+                new { area = "Orchard.Tags", tagName = tagCount.TagName },
+                new { dataScale=scale, style = "font-size:" + size + "em; font-weight:" + weight }
+        )
+        </li>
+    }
+</ul>
