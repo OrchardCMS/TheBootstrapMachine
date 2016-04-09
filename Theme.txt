@@ -1,5 +1,5 @@
 ﻿Name: The Bootstrap Machine
-The Orchard Team
+AUthor: The Orchard Team
 Description: Orchard Bootstrap Machine is a flexible multi-zone theme that provides a solid foundation to build your site. It features 20 collapsible widget zones and is flexible enough to cover a wide range of layouts.
 Version: 1.7.2
 Tags: Awesome
