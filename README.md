@@ -1,16 +1,13 @@
 TheBootstrapMachine
 ===================
 
-### Dale's Fork
-
-* modified `MenuItem` template
-* added `MenuItemLink` template 
-
-**Important**: You don't have to accept the default look and feel. You can add references to [BootSwatch](https://bootswatch.com/) 
+You don't have to accept the default look and feel. You can add references to [BootSwatch](https://bootswatch.com/) 
 from *Administration > Settings > Theme Options* to get about 16 different 
 variations. 
 
-**Customer Header Content**:
+Here's an example of using *superhero*:
+
+ **Customer Header Content**:
 ```html
 <!-- 
     cerulean, cosmo, cyborg, flatly, journal, readable, darkly, lumen, paper, sandstone, simplex, slate, spacelab, superhero, united, yeti 
