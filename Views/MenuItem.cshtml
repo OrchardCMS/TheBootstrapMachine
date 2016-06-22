@@ -1,12 +1,13 @@
-﻿@{
+﻿@using Orchard.DisplayManagement.Shapes
+@{
     // odd formatting in this file is to cause more attractive results in the output.
     var items = Enumerable.Cast<dynamic>((System.Collections.IEnumerable)Model);
 }
 @{
     if (!HasText(Model.Text)) {
         @DisplayChildren(Model)
-    }
-    else {
+    } else {
+       
         if ((bool) Model.Selected) {
             Model.Classes.Add("active");
         }
@@ -18,7 +19,7 @@
         @* morphing the shape to keep Model untouched*@
         Model.Metadata.Alternates.Clear();
         Model.Metadata.Type = "MenuItemLink";
-
+        
         @* render the menu item only if it has some content *@
         var renderedMenuItemLink = Display(Model);
         if (HasText(renderedMenuItemLink)) {
@@ -27,7 +28,7 @@
             @renderedMenuItemLink
 
             if (items.Any()) {
-                <ul>
+                <ul class="dropdown-menu">
                     @DisplayChildren(Model)
                 </ul>
             }

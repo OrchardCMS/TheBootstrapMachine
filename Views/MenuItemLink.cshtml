@@ -1,0 +1,8 @@
+﻿@{
+    var items = Enumerable.Cast<dynamic>((System.Collections.IEnumerable)Model).ToArray();
+}
+@if (items.Any()) {
+    <a href="@Model.Href" class="dropdown-toggle" data-toggle="dropdown">@Model.Text</a>
+} else {
+    <a href="@Model.Href">@Model.Text</a>
+}
