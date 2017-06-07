@@ -1,10 +1,21 @@
-﻿<h1>@Html.TitleForPage(T("Create a New Account").ToString())</h1>
+﻿@using Orchard.AntiSpam.Models
+@using Orchard.ContentManagement
+@{
+    Script.Include("https://www.google.com/recaptcha/api.js").AtHead();
+    var captcha = WorkContext.CurrentSite.As<ReCaptchaSettingsPart>();
+}
+
+<h1>@Html.TitleForPage(T("Create a New Account").ToString())</h1>
 <p>@T("Use the form below to create a new account.")</p>
 <p>@T("Passwords are required to be a minimum of {0} characters in length.", ViewData["PasswordLength"])</p>
 @Html.ValidationSummary(T("Account creation was unsuccessful. Please correct the errors and try again.").ToString()) 
 @using (Html.BeginFormAntiForgeryPost()) { 
     <fieldset>
         <legend>@T("Account Information")</legend>
+        <div class="form-group">
+            <label>@T("Prove you are human:")</label>
+            <div class="g-recaptcha" data-sitekey="@captcha.PublicKey"></div>
+        </div>
         <div class="form-group">
             <label for="username">@T("Username:")</label>
             @Html.TextBox("username", null, new { @class = "form-control" }) 
@@ -22,7 +33,7 @@
         </div>
         <div class="form-group">
             <label for="confirmPassword">@T("Confirm password:")</label>
-            @Html.Password("confirmPassword", null, new { @class = "form-control" })
+            @Html.Password("confirmPassword", null, new {@class = "form-control"})
             @Html.ValidationMessage("confirmPassword")
         </div>
         <div class="form-group">
